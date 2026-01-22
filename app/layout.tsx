@@ -1,4 +1,5 @@
 import { NavBar } from "@/components/NavBar";
+import { ReduxProvider } from "@/components/ReduxProvider";
 import type { Metadata } from "next";
 import { Crimson_Pro } from "next/font/google";
 import "./globals.css";
@@ -22,8 +23,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={crimsonPro.variable}>
-        <NavBar />
-        {children}
+        <ReduxProvider>
+          <NavBar />
+          {children}
+        </ReduxProvider>
       </body>
     </html>
   );
