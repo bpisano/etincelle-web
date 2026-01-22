@@ -1,4 +1,14 @@
-export interface SearchResult {
+export enum SearchEntityType {
+  Works = "works",
+  Humans = "humans",
+  Genres = "genres",
+  Publishers = "publishers",
+  Series = "series",
+  Collections = "collections",
+  Movements = "movements",
+}
+
+export interface SearchEntity {
   id: string;
   type: string;
   uri: string;
@@ -11,7 +21,7 @@ export interface SearchResult {
 }
 
 export interface InventaireSearchResponse {
-  results: SearchResult[];
+  results: SearchEntity[];
   total: number;
   continue?: number;
 }

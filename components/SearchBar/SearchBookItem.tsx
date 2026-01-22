@@ -1,8 +1,8 @@
-import type { SearchResult } from "@/types/book";
+import type { SearchEntity } from "@/types/search";
 import Link from "next/link";
 
 interface SearchBookItemProps {
-  result: SearchResult;
+  result: SearchEntity;
   onSelect?: () => void;
 }
 

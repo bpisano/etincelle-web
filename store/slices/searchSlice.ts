@@ -1,10 +1,10 @@
 import { searchBooks } from "@/lib/api/inventaire";
-import type { SearchResult } from "@/types/book";
+import type { SearchEntity } from "@/types/search";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
 interface SearchState {
   query: string;
-  results: SearchResult[];
+  results: SearchEntity[];
   isOpen: boolean;
   isLoading: boolean;
   error: string | null;

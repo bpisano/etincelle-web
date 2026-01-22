@@ -1,9 +1,9 @@
-import type { SearchResult } from "@/types/book";
+import type { SearchEntity } from "@/types/search";
 import { SearchBarDropdownItem } from "./SearchBarDropdownItem";
 import { SearchBookItem } from "./SearchBookItem";
 
 interface SearchBarDropdownMenuProps {
-  books: SearchResult[];
+  books: SearchEntity[];
   isLoading: boolean;
   error: string | null;
   selectedIndex: number;

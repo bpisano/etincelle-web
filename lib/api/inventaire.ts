@@ -1,6 +1,7 @@
-import type { InventaireSearchResponse, SearchResult } from "@/types/book";
+import type { InventaireSearchResponse, SearchEntity } from "@/types/search";
+import { SearchEntityType } from "@/types/search";
 
-export async function searchBooks(query: string, limit: number = 10): Promise<SearchResult[]> {
+export async function searchBooks(query: string, limit: number = 10): Promise<SearchEntity[]> {
   if (!query || query.trim().length < 2) {
     return [];
   }
@@ -8,8 +9,13 @@ export async function searchBooks(query: string, limit: number = 10): Promise<Se
   try {
     const params = new URLSearchParams({
       search: query.trim(),
-      types: "works",
       limit: limit.toString(),
+      "min-score": "100000",
+    });
+
+    // Add all entity types
+    Object.values(SearchEntityType).forEach((type) => {
+      params.append("types", type);
     });
 
     const response = await fetch(`/api/search?${params}`);

@@ -6,7 +6,7 @@ const USER_AGENT = "Etincelle-Web/1.0 (https://github.com/etincelle)";
 export async function GET(request: NextRequest) {
   const searchParams = request.nextUrl.searchParams;
   const query = searchParams.get("search");
-  const types = searchParams.get("types") || "works";
+  const types = searchParams.getAll("types");
   const limit = searchParams.get("limit") || "10";
 
   if (!query) {
@@ -16,9 +16,13 @@ export async function GET(request: NextRequest) {
   try {
     const params = new URLSearchParams({
       search: query,
-      types,
       limit,
       lang: "fr",
+    });
+
+    // Add all types parameters
+    types.forEach((type) => {
+      params.append("types", type);
     });
 
     const response = await fetch(`${API_BASE_URL}/search?${params}`, {
