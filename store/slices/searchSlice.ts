@@ -1,4 +1,5 @@
-import { searchBooks } from "@/lib/api/inventaire";
+import { inventaireClient } from "@/lib/inventaire/client";
+import { SearchRequest } from "@/lib/inventaire/requests/search";
 import type { SearchEntity } from "@/types/search";
 import { createAsyncThunk, createSlice, PayloadAction } from "@reduxjs/toolkit";
 
@@ -21,8 +22,16 @@ const initialState: SearchState = {
 };
 
 export const performSearch = createAsyncThunk("search/performSearch", async (query: string) => {
-  const results = await searchBooks(query, 7);
-  return results;
+  if (query.trim().length < 2) {
+    return [];
+  }
+
+  const request = new SearchRequest({
+    query: query.trim(),
+    limit: 7,
+  });
+
+  return await inventaireClient.execute(request);
 });
 
 const searchSlice = createSlice({
