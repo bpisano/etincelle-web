@@ -1,0 +1,29 @@
+@import 'tailwindcss';
+
+@theme {
+	--color-bgd-primary: #ffffff;
+	--color-bgd-secondary: #ffffff;
+	--color-bgd-tertiary: #ffffff;
+
+	--color-text-primary: #0d0d0d;
+	--color-text-secondary: #8f8f8f;
+
+	--color-border-primary: #dadada;
+
+	--color-focused-primary: #eeeeee;
+
+	--font-family-sans: var(--font-crimson-pro), system-ui, sans-serif;
+}
+
+body {
+	@apply bg-bgd-primary text-text-primary m-0;
+	font-family: var(--font-crimson-pro), system-ui, sans-serif;
+}
+
+.vstack {
+	@apply flex flex-col;
+}
+
+.hstack {
+	@apply flex flex-row;
+}
