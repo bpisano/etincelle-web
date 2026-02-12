@@ -1,5 +1,9 @@
 @import 'tailwindcss';
 
+:root {
+	--font-crimson-pro: 'Crimson Pro', serif;
+}
+
 @theme {
 	--color-bgd-primary: #ffffff;
 	--color-bgd-secondary: #ffffff;
