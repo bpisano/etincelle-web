@@ -24,7 +24,7 @@
 			}
 		} else if (e.key === 'Enter') {
 			e.preventDefault();
-			if (isOpen && results.length > 0 && results[selectedIndex]) {
+			if (isOpen && results.length > 0 && selectedIndex >= 0 && results[selectedIndex]) {
 				window.location.href = `/works/${encodeURIComponent(results[selectedIndex].uri)}`;
 			}
 		}
@@ -32,7 +32,6 @@
 
 	function handleFocus() {
 		if (query.trim().length >= 2 && results.length > 0) {
-			searchStore.setSelectedIndex(0);
 			searchStore.setOpen(true);
 		}
 	}
@@ -71,7 +70,7 @@
 			{error}
 			{selectedIndex}
 			{query}
-			onItemHover={(index) => searchStore.setSelectedIndex(index)}
+			onItemHover={(index) => searchStore.applyAutocomplete(index)}
 			onItemSelect={() => searchStore.setOpen(false)}
 		/>
 	{/if}

@@ -32,7 +32,7 @@
 		<div class="vstack">
 			{#each results as result, index}
 				<SearchBarDropdownItem
-					isSelected={index === selectedIndex}
+					isSelected={selectedIndex >= 0 && index === selectedIndex}
 					onHover={() => onItemHover(index)}
 				>
 					<SearchEntityItem {result} onSelect={onItemSelect} />

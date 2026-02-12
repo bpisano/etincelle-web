@@ -1,11 +1,12 @@
 import { EntityRequest } from '$lib/inventaire';
+import { WikiDataTag } from '$lib/wikidata/types';
 import type { PageLoad } from './$types';
 
 export const load: PageLoad = async ({ params, fetch }) => {
 	const request = new EntityRequest({
 		uris: [params.uri],
 		lang: 'fr',
-		relatives: ['wdt:P50'],
+		relatives: [WikiDataTag.Author],
 		attributes: ['info', 'labels', 'descriptions', 'image']
 	});
 

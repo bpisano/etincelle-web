@@ -3,21 +3,25 @@ import { writable } from 'svelte/store';
 
 interface SearchState {
 	query: string;
+	userInput: string; // Track user's actual typed input
 	results: SearchEntity[];
 	isOpen: boolean;
 	isLoading: boolean;
 	error: string | null;
 	selectedIndex: number;
+	isAutocompleting: boolean; // Track if we're showing autocomplete suggestion
 }
 
 function createSearchStore() {
 	const { subscribe, set, update } = writable<SearchState>({
 		query: '',
+		userInput: '',
 		results: [],
 		isOpen: false,
 		isLoading: false,
 		error: null,
-		selectedIndex: 0
+		selectedIndex: -1,
+		isAutocompleting: false
 	});
 
 	let searchTimeout: ReturnType<typeof setTimeout>;
@@ -26,7 +30,13 @@ function createSearchStore() {
 		subscribe,
 
 		setQuery: (query: string) => {
-			update((state) => ({ ...state, query }));
+			update((state) => ({ 
+				...state, 
+				query, 
+				userInput: query, 
+				selectedIndex: -1, 
+				isAutocompleting: false 
+			}));
 
 			// Clear existing timeout
 			clearTimeout(searchTimeout);
@@ -61,7 +71,7 @@ function createSearchStore() {
 						results,
 						isLoading: false,
 						isOpen: true,
-						selectedIndex: 0
+						selectedIndex: -1
 					}));
 				} catch (err) {
 					update((state) => ({
@@ -83,32 +93,75 @@ function createSearchStore() {
 		},
 
 		incrementSelectedIndex: () => {
-			update((state) => ({
-				...state,
-				selectedIndex:
-					state.results.length > 0 ? (state.selectedIndex + 1) % state.results.length : 0
-			}));
+			update((state) => {
+				if (state.results.length === 0) return state;
+				
+				const newIndex = state.selectedIndex < 0 
+					? 0 
+					: (state.selectedIndex + 1) % state.results.length;
+				const selectedResult = state.results[newIndex];
+				
+				return {
+					...state,
+					selectedIndex: newIndex,
+					query: selectedResult.label,
+					isAutocompleting: true
+				};
+			});
 		},
 
 		decrementSelectedIndex: () => {
-			update((state) => ({
-				...state,
-				selectedIndex:
-					state.results.length > 0
-						? (state.selectedIndex - 1 + state.results.length) % state.results.length
-						: 0
-			}));
+			update((state) => {
+				if (state.results.length === 0) return state;
+				
+				// If nothing selected or on first item, deselect and restore user input
+				if (state.selectedIndex <= 0) {
+					return {
+						...state,
+						selectedIndex: -1,
+						query: state.userInput,
+						isAutocompleting: false
+					};
+				}
+				
+				// Otherwise move up one item
+				const newIndex = state.selectedIndex - 1;
+				const selectedResult = state.results[newIndex];
+				
+				return {
+					...state,
+					selectedIndex: newIndex,
+					query: selectedResult.label,
+					isAutocompleting: true
+				};
+			});
+		},
+
+		applyAutocomplete: (index: number) => {
+			update((state) => {
+				if (index < 0 || index >= state.results.length) return state;
+				
+				const selectedResult = state.results[index];
+				return {
+					...state,
+					selectedIndex: index,
+					query: selectedResult.label,
+					isAutocompleting: true
+				};
+			});
 		},
 
 		reset: () => {
 			clearTimeout(searchTimeout);
 			set({
 				query: '',
+				userInput: '',
 				results: [],
 				isOpen: false,
 				isLoading: false,
 				error: null,
-				selectedIndex: 0
+				selectedIndex: -1,
+				isAutocompleting: false
 			});
 		}
 	};
