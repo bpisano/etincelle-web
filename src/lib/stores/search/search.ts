@@ -30,12 +30,12 @@ function createSearchStore() {
 		subscribe,
 
 		setQuery: (query: string) => {
-			update((state) => ({ 
-				...state, 
-				query, 
-				userInput: query, 
-				selectedIndex: -1, 
-				isAutocompleting: false 
+			update((state) => ({
+				...state,
+				query,
+				userInput: query,
+				selectedIndex: -1,
+				isAutocompleting: false
 			}));
 
 			// Clear existing timeout
@@ -95,12 +95,11 @@ function createSearchStore() {
 		incrementSelectedIndex: () => {
 			update((state) => {
 				if (state.results.length === 0) return state;
-				
-				const newIndex = state.selectedIndex < 0 
-					? 0 
-					: (state.selectedIndex + 1) % state.results.length;
+
+				const newIndex =
+					state.selectedIndex < 0 ? 0 : (state.selectedIndex + 1) % state.results.length;
 				const selectedResult = state.results[newIndex];
-				
+
 				return {
 					...state,
 					selectedIndex: newIndex,
@@ -113,7 +112,7 @@ function createSearchStore() {
 		decrementSelectedIndex: () => {
 			update((state) => {
 				if (state.results.length === 0) return state;
-				
+
 				// If nothing selected or on first item, deselect and restore user input
 				if (state.selectedIndex <= 0) {
 					return {
@@ -123,11 +122,11 @@ function createSearchStore() {
 						isAutocompleting: false
 					};
 				}
-				
+
 				// Otherwise move up one item
 				const newIndex = state.selectedIndex - 1;
 				const selectedResult = state.results[newIndex];
-				
+
 				return {
 					...state,
 					selectedIndex: newIndex,
@@ -140,7 +139,7 @@ function createSearchStore() {
 		applyAutocomplete: (index: number) => {
 			update((state) => {
 				if (index < 0 || index >= state.results.length) return state;
-				
+
 				const selectedResult = state.results[index];
 				return {
 					...state,

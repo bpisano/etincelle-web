@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { searchStore } from '$lib/stores/search';
+	import { searchStore } from '$lib/stores/search/search';
 	import SearchBarDropdownMenu from './SearchBarDropdownMenu.svelte';
 
 	let inputElement: HTMLInputElement;

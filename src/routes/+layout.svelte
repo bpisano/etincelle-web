@@ -2,9 +2,15 @@
 	import favicon from '$lib/assets/favicon.svg';
 	import { NavBar } from '$lib/components/NavBar';
 	import { SideBar } from '$lib/components/SideBar';
+	import { userStore } from '$lib/stores/user/userStore.js';
+	import type { LayoutProps } from './$types';
 	import './layout.css';
 
-	let { children } = $props();
+	let { data, children }: LayoutProps = $props();
+
+	$effect(() => {
+		userStore.setUser(data.user);
+	});
 </script>
 
 <svelte:head>
@@ -12,6 +18,7 @@
 	<meta name="description" content="Etincelle Web App" />
 	<link rel="icon" href={favicon} />
 </svelte:head>
+
 <div>
 	<NavBar />
 	<div class="hstack">

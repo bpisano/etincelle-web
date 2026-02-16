@@ -3,4 +3,3 @@ export { EntityRequest } from './requests/entity/entity';
 export type { EntityRequestParams } from './requests/entity/entity';
 export { SearchRequest } from './requests/search/search';
 export type { SearchRequestParams } from './requests/search/search';
-export type { EntitiesResponse, Entity } from './types';

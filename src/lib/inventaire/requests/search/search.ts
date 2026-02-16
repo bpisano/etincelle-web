@@ -1,4 +1,7 @@
-import type { InventaireSearchResponse, SearchEntity } from '$lib/types/search';
+import type {
+	InventaireSearchResponse,
+	SearchEntity
+} from '$lib/inventaire/requests/search/types/search';
 import type { InventaireIORequest } from '../../types';
 import { EntityType } from '../../types';
 

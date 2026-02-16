@@ -20,7 +20,7 @@
 }
 
 body {
-	@apply bg-bgd-primary text-text-primary m-0;
+	@apply m-0 bg-bgd-primary text-text-primary;
 	font-family: var(--font-crimson-pro), system-ui, sans-serif;
 }
 

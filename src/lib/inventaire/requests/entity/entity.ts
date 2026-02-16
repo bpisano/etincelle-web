@@ -1,4 +1,5 @@
-import type { EntitiesResponse, InventaireIORequest } from '../../types';
+import type { EntitiesResponse } from '$lib/inventaire/requests/entity/types/entity';
+import type { InventaireIORequest } from '$lib/inventaire/types';
 
 export interface EntityRequestParams {
 	uris: string[];
@@ -11,11 +12,7 @@ export class EntityRequest implements InventaireIORequest<EntitiesResponse> {
 	endpoint = 'entities';
 	method = 'GET' as const;
 
-	private params: EntityRequestParams;
-
-	constructor(params: EntityRequestParams) {
-		this.params = params;
-	}
+	constructor(private params: EntityRequestParams) {}
 
 	buildParams(): URLSearchParams {
 		const urlParams = new URLSearchParams({

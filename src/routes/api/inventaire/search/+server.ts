@@ -24,7 +24,8 @@ export const GET: RequestHandler = async ({ url }) => {
 			types: [EntityType.Humans, EntityType.Works]
 		});
 
-		const results = await serverClient.execute(searchRequest);
+		const response = await serverClient.execute(searchRequest);
+		const results = response.data;
 
 		return json(results);
 	} catch (err) {

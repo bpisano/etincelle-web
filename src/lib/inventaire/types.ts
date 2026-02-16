@@ -2,6 +2,7 @@ export interface InventaireIORequest<TResponse> {
 	endpoint: string;
 	method: 'GET' | 'POST';
 	buildParams(): URLSearchParams;
+	buildBody?(): URLSearchParams | FormData | Record<string, unknown>;
 	parseResponse(data: unknown): TResponse;
 }
 
