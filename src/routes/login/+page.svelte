@@ -4,7 +4,7 @@
 	let { form }: { form: FormData } = $props();
 </script>
 
-<form class="vstack" method="POST" use:enhance>
+<form class="vstack" method="POST" action="?/login" use:enhance>
 	<h1>Login</h1>
 
 	<div class="hstack">

@@ -4,7 +4,7 @@ import { fail, redirect, type Actions } from '@sveltejs/kit';
 import parseSetCookie from 'set-cookie-parser';
 
 export const actions: Actions = {
-	default: async ({ request, cookies }) => {
+	login: async ({ request, cookies }) => {
 		const form: FormData = await request.formData();
 		const username: string = form.get('username')?.toString() ?? '';
 		const password: string = form.get('password')?.toString() ?? '';
