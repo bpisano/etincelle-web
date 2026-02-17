@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { searchStore } from '$lib/stores/search/search';
+	import { IconSearch } from '@tabler/icons-svelte';
 	import SearchBarDropdownMenu from './SearchBarDropdownMenu.svelte';
 
 	let inputElement: HTMLInputElement;
@@ -52,16 +53,19 @@
 </script>
 
 <div class="relative w-full max-w-2xl" bind:this={dropdownElement}>
-	<input
-		bind:this={inputElement}
-		type="text"
-		value={query}
-		oninput={(e) => searchStore.setQuery(e.currentTarget.value)}
-		onkeydown={handleKeyDown}
-		onfocus={handleFocus}
-		placeholder="Search..."
-		class="placeholder:text-text-tertiary w-full border border-border-primary bg-bgd-secondary px-2 py-1 text-text-primary outline-none"
-	/>
+	<div class="hstack items-center gap-2 border border-border-primary px-2 py-1">
+		<IconSearch class="text-text-tertiary" size={18} />
+		<input
+			bind:this={inputElement}
+			type="text"
+			value={query}
+			oninput={(e) => searchStore.setQuery(e.currentTarget.value)}
+			onkeydown={handleKeyDown}
+			onfocus={handleFocus}
+			placeholder="Search..."
+			class="w-full bg-bgd-secondary text-text-primary outline-none placeholder:text-text-tertiary"
+		/>
+	</div>
 
 	{#if isOpen}
 		<SearchBarDropdownMenu

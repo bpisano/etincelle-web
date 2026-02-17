@@ -1,7 +1,7 @@
 <script lang="ts">
 	import favicon from '$lib/assets/favicon.svg';
 	import { NavBar } from '$lib/components/NavBar';
-	import { SideBar } from '$lib/components/SideBar';
+	import SideBar from '$lib/components/SideBar/SideBar.svelte';
 	import { userStore } from '$lib/stores/user/userStore.js';
 	import type { LayoutProps } from './$types';
 	import './layout.css';
